@@ -1,0 +1,77 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #96c5de;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  text-align: center;
+  padding: 20px;
+}
+
+.header {
+  color: #3333d6;
+  margin-bottom: 20px;
+}
+
+table {
+  margin: auto;
+  border-collapse: collapse;
+  width: 60%;
+  background: rgb(45, 110, 166);
+  box-shadow: 0 0 10px rgba(32, 81, 188, 0.1);
+}
+
+th,
+td {
+  border: 1px solid #99d6ff;
+  padding: 10px;
+}
+
+th {
+  background-color: #12304b;
+}
+
+input {
+  padding: 5px;
+  border: 1px solid #1c114e;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #2e47b4;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  margin-left: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #4ea1d1;
+}
+
+.form {
+  margin-bottom: 20px;
+}
+
+.pass {
+  color: rgb(33, 232, 152);
+  font-weight: bold;
+}
+
+.fail {
+  color: rgb(142, 84, 67);
+  font-weight: bold;
+}
+
+.clear-btn {
+  margin-top: 15px;
+  background-color: #101692;
+}
+
+.clear-btn:hover {
+  background-color: #66a3dd;
+}
