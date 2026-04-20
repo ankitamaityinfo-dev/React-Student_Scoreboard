@@ -1,38 +1,43 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-function AddStudentForm({ addStudent }) {
-    const [name, setName] = useState("");
-    const [score, setScore] = useState("");
+function AddStudentForm({ onAddStudent }) {
+    const [name, setName] = useState('');
+    const [score, setScore] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!name || !score) return;
-
-        addStudent(name, score);
-        setName("");
-        setScore("");
+        if (name.trim() && score !== '') {
+            onAddStudent(name, score);
+            setName('');
+            setScore('');
+        }
     };
 
     return (
-        <form onSubmit={handleSubmit} className="form">
-            <input
-                type="text"
-                placeholder="Student Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-            />
-            <input
-                type="number"
-                placeholder="Score"
-                value={score}
-                min="0"
-                max="100"
-                onChange={(e) =>
-                    setScore(Math.max(0, Math.min(100, e.target.value)))}
-
-            />
-            <button type="submit">Add Student</button>
-        </form>
+        <div className="form-container">
+            <h3>Register New Student</h3>
+            <form onSubmit={handleSubmit} className="add-form">
+                <input
+                    type="text"
+                    placeholder="Student Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                />
+                <input
+                    type="number"
+                    placeholder="Score (0-100)"
+                    value={score}
+                    onChange={(e) => setScore(e.target.value)}
+                    min="0"
+                    max="100"
+                    required
+                />
+                <button type="submit" className="add-btn">
+                    + Add Student
+                </button>
+            </form>
+        </div>
     );
 }
 

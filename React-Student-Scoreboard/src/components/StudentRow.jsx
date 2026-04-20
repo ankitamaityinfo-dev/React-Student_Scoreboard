@@ -1,33 +1,57 @@
-function StudentRow({ student, updateScore, removeStudent }) {
+import { useState } from 'react';
+
+function StudentRow({ student, onUpdateScore }) {
+    const [scoreInput, setScoreInput] = useState(student.score);
+    const [isEditing, setIsEditing] = useState(false);
+
+    const handleSave = () => {
+        if (scoreInput !== '' && scoreInput >= 0 && scoreInput <= 100) {
+            onUpdateScore(student.id, scoreInput);
+            setIsEditing(false);
+        }
+    };
+
     const status = student.score >= 40 ? "Pass" : "Fail";
+    const statusClass = student.score >= 40 ? "pass" : "fail";
 
     return (
-        <tr>
-            <td>{student.name}</td>
+        <tr className="student-row glass-glow">
+            <td className="student-name">{student.name}</td>
 
             <td>
-                <input
-                    type="number"
-                    value={student.score}
-                    min="0"
-                    max="100"
-                    onChange={(e) =>
-                        updateScore(
-                            student.id,
-                            Math.max(0, Math.min(100, e.target.value))
-                        )
-                    }
-                />
-            </td>
-
-            <td className={status === "Pass" ? "pass" : "fail"}>
-                {status}
+                {isEditing ? (
+                    <input
+                        type="number"
+                        value={scoreInput}
+                        onChange={(e) => setScoreInput(e.target.value)}
+                        min="0"
+                        max="100"
+                        className="score-input"
+                    />
+                ) : (
+                    <span className="score">{student.score}</span>
+                )}
             </td>
 
             <td>
-                <button onClick={() => removeStudent(student.id)}>
-                    Remove
-                </button>
+                <span className={`status ${statusClass}`}>
+                    {status}
+                </span>
+            </td>
+
+            <td>
+                {isEditing ? (
+                    <button onClick={handleSave} className="save-btn">
+                        Save
+                    </button>
+                ) : (
+                    <button
+                        onClick={() => setIsEditing(true)}
+                        className="update-btn"
+                    >
+                        Update
+                    </button>
+                )}
             </td>
         </tr>
     );

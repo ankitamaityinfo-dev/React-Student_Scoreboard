@@ -1,5 +1,12 @@
 function Header() {
-    return <h1 className="header"> Student Scoreboard</h1>;
+    return (
+        <header className="header">
+            <div className="header-content">
+                <h1>Academic Terminal v1.1</h1>
+                <h2>Student Scoreboard</h2>
+            </div>
+        </header>
+    );
 }
 
 export default Header;

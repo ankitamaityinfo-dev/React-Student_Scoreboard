@@ -1,28 +1,29 @@
-import StudentRow from "./StudentRow";
+import StudentRow from './StudentRow';
 
-function StudentTable({ students, updateScore, removeStudent }) {
+function StudentTable({ students, onUpdateScore }) {
     return (
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Score</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                {students.map((s) => (
-                    <StudentRow
-                        key={s.id}
-                        student={s}
-                        updateScore={updateScore}
-                        removeStudent={removeStudent}
-                    />
-                ))}
-            </tbody>
-        </table>
+        <div className="table-container ">
+            <h3>Student Records</h3>
+            <table className="student-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Score</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {students.map((student) => (
+                        <StudentRow
+                            key={student.id}
+                            student={student}
+                            onUpdateScore={onUpdateScore}
+                        />
+                    ))}
+                </tbody>
+            </table>
+        </div>
     );
 }
 

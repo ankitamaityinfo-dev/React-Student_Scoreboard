@@ -1,55 +1,70 @@
-import { useState } from "react";
-import Header from "./components/Header";
-import StudentTable from "./components/StudentTable";
-import AddStudentForm from "./components/AddStudentForm";
-import "./App.css";
+import { useState } from 'react';
+import Header from './components/Header';
+import AddStudentForm from './components/AddStudentForm';
+import StudentTable from './components/StudentTable';
 
 function App() {
   const [students, setStudents] = useState([
-    { id: 1, name: "Aman", score: 50 },
-    { id: 2, name: "Riya", score: 30 },
+    { id: 1, name: "Ankita Maity", score: 99 },
+    { id: 2, name: "Aditya", score: 50 },
+    { id: 3, name: "Priya", score: 90 },
+    { id: 4, name: "Mahi", score: 32 },
   ]);
-
-  const updateScore = (id, newScore) => {
-    setStudents(
-      students.map((s) =>
-        s.id === id ? { ...s, score: Number(newScore) } : s
-      )
-    );
-  };
 
   const addStudent = (name, score) => {
     const newStudent = {
-      id: students.length + 1,
-      name,
-      score: Number(score),
+      id: Date.now(),
+      name: name.trim(),
+      score: parseInt(score),
     };
     setStudents([...students, newStudent]);
   };
 
-  // ✅ NEW
-  const removeStudent = (id) => {
-    setStudents(students.filter((s) => s.id !== id));
+  const updateScore = (id, newScore) => {
+    setStudents(students.map(student =>
+      student.id === id ? { ...student, score: parseInt(newScore) } : student
+    ));
   };
 
-  const clearAll = () => {
-    setStudents([]);
-  };
+
+  const totalStudents = students.length;
+  const passedStudents = students.filter(s => s.score >= 40).length;
+  const avgScore = totalStudents > 0
+    ? (students.reduce((sum, s) => sum + s.score, 0) / totalStudents).toFixed(1)
+    : 0;
 
   return (
     <div className="app">
       <Header />
-      <AddStudentForm addStudent={addStudent} />
 
-      <StudentTable
-        students={students}
-        updateScore={updateScore}
-        removeStudent={removeStudent}
-      />
+      <div className="container">
 
-      <button onClick={clearAll} className="clear-btn">
-        Clear All
-      </button>
+        <div className="stats">
+          <div className="stat-card">
+            <h3>Total Students</h3>
+            <p className="stat-number">{totalStudents}</p>
+          </div>
+          <div className="stat-card">
+            <h3>Passed</h3>
+            <p className="stat-number">{passedStudents}</p>
+          </div>
+          <div className="stat-card">
+            <h3>Average Score</h3>
+            <p className="stat-number">{avgScore}</p>
+          </div>
+        </div>
+
+        <AddStudentForm onAddStudent={addStudent} />
+
+        <StudentTable
+          students={students}
+          onUpdateScore={updateScore}
+        />
+      </div>
+
+      <footer className="footer">
+        STUDENT SCORECARD MADE BY ANKITA MAITY
+      </footer>
     </div>
   );
 }
